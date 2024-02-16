@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulário</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <center>
+    <header>
+    <h1>Devs school</h1>
+    </header>
+    <br>
+    <form>
+        <div class="botoes">
+        <button class="btn"><a href="index.html">GET</a></button> 
+        <button class="btn1"><a href="post.html">POST</a></button> 
+        <button class="btn2"><a href="update.html">UPDATE</a></button> 
+        <button class="btn3"><a href="delete.html">DELETE</a></button>  
+        </div>
+
+        <div class="im">
+        <h2>Dados Cadastrais - GET</h2>
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Idade</th>
+                <th>CPF</th>
+            </tr>
+            <tbody id="tabela-corpo"></tbody>
+        </table>
+    </div>
+    </form> 
+    <footer>Sobre Nós: xxxxxxxxxxxxxxxxxx 
+        <ul>Contato:2222-222</ul><ul>Email:1234@.gmail.com</ul>
+    <ul>Endereço:vvvvvvv</ul> Feito por: Vinicius Eduardo Q.F</footer>
+
+    <script>
+        //GET-PUT   
+        function buscarDados() {
+            const cpf = document.getElementById('cpfAtualizar').value;
+            fetch(`pessoas`, {
+                method: 'GET'
+            })
+            .then(response => response.json())
+            .then(data => {
+                const pessoaEncontrada = data.find(pessoa => pessoa.cpf === cpf);
+                
+                console.log(data)
+                if (pessoaEncontrada) {
+                    document.getElementById('nomeAtualizar').value = pessoaEncontrada.nome;
+                    document.getElementById('idadeAtualizar').value = pessoaEncontrada.idade;
+                    document.getElementById('cpfAtualizar').value = pessoaEncontrada.cpf;
+                    document.getElementById('id').value = pessoaEncontrada.id;
+                } else {
+                    alert('Pessoa não encontrada!');
+                }
+            })
+        }
+        
+          
+        //PUT
+            function atualizarDados() {
+                const id = document.getElementById('id').value;
+                const nome = document.getElementById('nomeAtualizar').value;
+                const idade = document.getElementById('idadeAtualizar').value;
+                const cpf = document.getElementById('cpfAtualizar').value;
+
+                fetch(`pessoas/${id}`,{
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type' : 'application/json'
+                    },
+                    body: JSON.stringify({ nome: nome, idade: idade,cpf: cpf})
+                })
+                .then(response => response.json())
+                .then(data => {
+                    // limpa os inputs do formulário
+                    document.getElementById('id').value = '';
+                    document.getElementById('nomeAtualizar').value = '';
+                    document.getElementById('idadeAtualizar').value = '';
+                    document.getElementById('cpfAtualizar').value = '';
+                });
+                
+            }
+
+
+          //GET
+          fetch(`pessoas`)
+        .then(response => response.json())
+        .then(data => {
+            const tabela = document.getElementById('tabela-corpo');
+            //Utilizado o loop ForEach para interar cada objeto no array retornado a API
+            data.forEach((objeto) => {
+                //Adicionado essa string de template ao conteudo HTML do corpo da tabela.
+                const linha = `<tr>
+                    <td>${objeto.id}</td>
+                    <td>${objeto.nome}</td>
+                    <td>${objeto.idade}</td>
+                    <td>${objeto.cpf}</td>
+                </tr>`;
+                tabela.innerHTML += linha;
+            })
+        })
+          
+    </script>
+</center>
+</body>
+</html>
