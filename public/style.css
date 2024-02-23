@@ -52,10 +52,9 @@ footer {
 }
 
 input[type="text"] {
-    width: 50%;
+    width: 20%;
     padding: 8px;
     margin: 5px 0;
-    box-sizing: border-box;
 }
 
 label {
@@ -78,10 +77,8 @@ h3 {
 header {
     background-color: #333;
     color: #fff;
-    padding: 20px;
-    text-align: center;
-    width: 100%;
     padding: 30px;
+   
 }
 
 body{
@@ -112,8 +109,11 @@ label{
     color: #fff;
 }
 
+#login{
+    padding-top: 30px;
+    font-size: 8px;
 
-
+}
 
 
 
@@ -177,7 +177,7 @@ label{
     transition : 783ms;
     padding: 10px 20px;
     transform : translateY(-0px);
-    background-color: #ddf312;
+    background-color: #c7c415;
    
 }
 
